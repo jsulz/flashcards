@@ -1,0 +1,211 @@
+/*
+Theme Name: Flash
+Theme URI: http://flash.jsulz.com;
+Author: Jared Sulzdorf
+Author URI: https://profiles.wordpress.org/jsulz/
+Description: A WP REST API-based theme for my own personal use that helps me study all the things!
+Version: 0.1-alpha
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: flash
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+*/
+
+/* Normalizing the DOM styling */
+/* Thanks Eric! http://meyerweb.com/eric/tools/css/reset/ */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	box-sizing: border-box;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+body {
+	position: absolute;
+}
+
+/* Clearfix */
+
+.clearfix:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+     }
+.clearfix { display: inline-block; }
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+/* close commented backslash hack */
+
+/* General styles */
+
+body {
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+   font-weight: 300;
+   width: 100%;
+}
+
+.row {
+	width: 100%;
+	height: 100%;
+  	display: flex;
+  	flex-direction: row;
+  	justify-content: center;
+}
+
+#blog-title {
+	width: 50%;
+	display: inline-block;
+	text-decoration: none;
+	vertical-align: middle;
+	font-size: 55px;
+}
+
+.content { 
+	margin: 50px;
+}
+
+.card-content {
+	display: block;
+	margin: 0 auto;
+}
+
+.grid3 {
+	flex-grow: 3;
+}
+
+.language, .context {
+	font-size: 20px;
+	font-weight: 600;
+	position: absolute;
+	padding: 10px;
+}
+
+.language {
+	top: 0;	
+	left: 0;
+}
+
+.context {
+	top: 0;
+	right: 0;
+}
+
+/* Card styling */
+/* entire container, keeps perspective */
+.flip-container {
+	perspective: 1000;
+}
+/* flip the pane when hovered */
+.flip-container.flip .flipper {
+	transform: rotateY(180deg);
+}
+
+.flip-container, .front, .back {
+	width: 100%;
+	height: 480px;
+}
+
+/* flip speed goes here */
+.flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	backface-visibility: hidden;
+	box-shadow: 3px 3px 20px grey;
+	position: absolute;
+	top: 0;
+	left: 0;
+  	display: flex;
+  	flex-direction: column;
+  	justify-content: center;
+}
+
+/* front pane, placed above back */
+.front {
+	z-index: 2;
+	/* for firefox 31 */
+	transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+	transform: rotateY(180deg);
+}
+
+/* UI Styling */
+
+#usercontrols {
+	display: none;
+}
+
+.button a {
+	text-decoration: none;
+	color: white;
+	display: block;
+	padding: 15px 50px;
+}
+
+.button {
+	display:block;
+	box-sizing: border-box;
+	background: black;
+	letter-spacing: 1px;
+	border-radius: 3px;
+	font-weight: 400;
+	text-align: center;
+	margin: 20px;
+}
+
+#get-new {
+	float: right;
+	margin: 20px;
+}
