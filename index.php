@@ -41,7 +41,7 @@
 						<div class="card-content">
 							<div class="post"></div>
 							<div class="link">
-								<a href=""></a>
+								<a href="">Resource</a>
 							</div>
 						</div>
 					</div>

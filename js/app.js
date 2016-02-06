@@ -35,11 +35,21 @@ jQuery(document).ready(function($){
 
 	function setpostdata () {
 		checkCardStatus();
-		getPostsFromServer();
 		post = getRandomPost();
-		console.log(post['title']);
-		$('.title').text(post['title'].rendered);
-		$('.post').html(post['content'].rendered);
+		console.log(post);
+		//$('.title').text(post['title'].rendered);
+		//$('.post').html(post['content'].rendered);
+		//$('.link a').attr('href', post['flashcards_url']);
+		getMoreInfo(post, {});
+	}
+
+	function getMoreInfo( singlepost, data ) {
+		$.get( wpInfo.api_url + '/?filter[name]=' + singlepost['slug'] + '&_embed', function( data ) {
+			singlepost = data[0];
+			$('.title').text(post['title'].rendered);
+			$('.post').html(post['content'].rendered);
+			$('.link a').attr('href', post['flashcards_url']);
+		});
 	}
 
 	function checkCardStatus() {

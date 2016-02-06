@@ -15,6 +15,7 @@ class FLASHCARDS_FUNCTIONS {
 		add_action( 'add_meta_boxes', array( $this, 'register_post_meta_box' ) );
 		add_action( 'save_post', array( $this, 'save_post_meta_box_values' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_flashcards_scripts' ) );
+		add_action( 'rest_api_init', array( $this, 'adding_fields_to_rest' ) );
 
 	}
 
@@ -31,7 +32,7 @@ class FLASHCARDS_FUNCTIONS {
 		$urlval = get_post_meta( $post->ID, 'flashcards_url', true );
 
 		//sure, ternary operators are great, but I *like* this structure
-		if ( isset( $urlval['flashcards_url'] ) ) {
+		if ( isset( $urlval ) ) {
 			$url = $urlval;
 		} else {
 			$url = '';
@@ -41,15 +42,14 @@ class FLASHCARDS_FUNCTIONS {
 		wp_nonce_field( 'post_meta_box_nonce', 'post_meta_box' );
 
 		?>
-			<p>This is the content that will appear in the post meta box.</p>
-			<input type="text" class="widefat" name="flashcards_url" placeholder="Here are some settings" value="<?php echo $url[0] ?>"/>
+			<p>Place the URL of the resource for this card.</p>
+			<input type="text" class="widefat" name="flashcards_url" placeholder="Here are some settings" value="<?php echo $url ?>"/>
 
 		<?php
 
 	}
 
 	public function save_post_meta_box_values( $post_id ) {
-
 		// Bail if we're doing an auto save
 	    if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) { return false; }
 	     
@@ -59,6 +59,22 @@ class FLASHCARDS_FUNCTIONS {
 	    // Make sure your data is set before trying to save it
 	    if( isset( $_POST['post_meta_box'] ) )
 	        update_post_meta( $post_id, 'flashcards_url', wp_kses( $_POST['flashcards_url'] ) );
+
+	}
+
+	public function adding_fields_to_rest() {
+
+		register_rest_field('post', 'flashcards_url', array(
+				'get_callback' => array( $this, 'adding_fields_callback'),
+				'update_callback' => null,
+				'schema' 	=> null
+			));
+
+	}
+
+	public function adding_fields_callback(  $object, $field_name, $request ) {
+
+		return get_post_meta( $object['id'], $field_name, true );
 
 	}
 
