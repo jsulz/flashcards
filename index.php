@@ -10,15 +10,14 @@
     <!--[if lt IE 9]>
 	    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />	
-    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <?php wp_head(); ?>
 </head>
 <body>
 <header class="container header clearfix">
 		<div class="row">
 				<h1 id="blog-title">
 					<a href="#">
-						Studying with Flash
+						<?php echo bloginfo( 'name' );?>
 					</a>
 				</h1>
 				<h2 class="button" id="get-new">
@@ -51,8 +50,7 @@
 </div>
 <body>
 <footer class="container footer">
-	<script src="js/front-end.js"></script>
-	<script src="js/app.js"></script>
+	<?php wp_footer(); ?>
 	<div id="usercontrols" class="row">
 		<div id="answer" class="button grid3"><a href="#">Answer</a></div>
 		<div id="save" class="button grid3"><a href="#">I Know This!</a></div>

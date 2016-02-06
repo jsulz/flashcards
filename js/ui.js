@@ -1,5 +1,5 @@
 jQuery(document).ready( function($) {
-	console.log('hi');
+
 	$('#answer').on('click', function(event){
 		event.preventDefault();
 		$('#mycard').toggleClass('flip');
