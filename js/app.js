@@ -16,7 +16,6 @@ function getPostsFromServer( ) {
 }
 
 function filtering( checkingposts ) {
-	console.log(checkingposts);
 	return jQuery.inArray( 1, checkingposts.categories);
 }
 
@@ -45,6 +44,8 @@ jQuery(document).ready(function($){
 
 	$el = $('card-content');
 
+	var post;
+
 	//get all of the posts from the server
 	getPostsFromServer( );
 
@@ -53,6 +54,8 @@ jQuery(document).ready(function($){
 		//don't really need to pass along the event object, but will anyway just in case!
 		setPostData(event);
 	});
+
+	$('#remove').on( 'click', removeFromStack);
 
 	function setPostData () {
 
@@ -96,10 +99,11 @@ jQuery(document).ready(function($){
 	}
 
 	function removeFromStack() {
-		//when the remove from stack button is clicked
-		//go back to the server and place the post in a category that declares this is "done"
-		//we don't want to have to make another call for all the posts though
-		//so just remove the post from what basically amounts to the local cache - the cleanedposts array
+
+		clean = cleanedPosts.indexOf(post);
+		cleanedPosts.splice(clean, 1);
+		setPostData();
+
 	}
 
 });

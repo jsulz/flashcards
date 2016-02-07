@@ -27,34 +27,35 @@
 				</h2>
 		</div>
 </header>
-<div class="content">
-	<div id="mycard" class="flip-container">
-			<div class="flipper">
-				<div class="front">
-					<div class="card-content">
-						<div class="ajax-loader"><img src="<?php echo get_template_directory_uri() . '/spinner.svg' ?>" width="32" height="32" /></div>
-						<h3 class="language category"></h3>
-						<h3 class="context tag"></h3>
-						<h1 class="function title">Get Started!</h1>
-					</div>
-				</div>
-					<div class="back">
+<div class="wrapper">
+	<div class="content">
+		<div id="mycard" class="flip-container">
+				<div class="flipper">
+					<div class="front">
 						<div class="card-content">
-							<div class="post"></div>
-							<div class="link">
-								<a href="">Resource</a>
-							</div>
+							<div class="ajax-loader"><img src="<?php echo get_template_directory_uri() . '/spinner.svg' ?>" width="32" height="32" /></div>
+							<h3 class="language category"></h3>
+							<h3 class="context tag"></h3>
+							<h1 class="function title">Get Started!</h1>
 						</div>
 					</div>
-			</div>
+						<div class="back">
+							<div class="card-content">
+								<div class="post"></div>
+								<div class="link">
+									<a href="">Resource</a>
+								</div>
+							</div>
+						</div>
+				</div>
+		</div>
 	</div>
 </div>
 <body>
 <footer class="container footer">
 	<?php wp_footer(); ?>
 	<div id="usercontrols" class="row">
-		<div id="answer" class="button grid3"><a href="#">Answer</a></div>
-		<div id="save" class="button grid3"><a href="#">I Know This!</a></div>
-		<div id="reject" class="button grid3"><a href="#">Save For Later</a></div>
+		<div id="answer" class="button"><a href="#">Answer</a></div>
+		<div id="remove" class="button"><a href="#">Remove from Stack</a></div>
 	</div> 
 </footer>
