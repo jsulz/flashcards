@@ -3,11 +3,13 @@ var posts = {};
 var cleanedPosts = [];
 
 //get the posts from the server and load them into the posts var
-function getPostsFromServer( callback ) {
+function getPostsFromServer( ) {
 
 	doAjax( wpInfo.api_url, {} )
 		.done( function( data ) {
 			posts = data;
+
+			//now remove the posts we don't want
 			removeUnwanted();
 		} );
 
@@ -44,7 +46,7 @@ jQuery(document).ready(function($){
 	$el = $('card-content');
 
 	//get all of the posts from the server
-	getPostsFromServer( setPostData );
+	getPostsFromServer( );
 
 	//each time we click on the "Get Another Card" Button, make a call to setPostData
 	$('#get-new').on('click', function(event) {
@@ -76,15 +78,11 @@ jQuery(document).ready(function($){
 			singlepost = data[0];
 
 			//render the content
-			if ( singlepost['_embedded']['https://api.w.org/term'][0][0]['name'] === 'Uncategorized') {
-				setPostData();
-			} else {
-				$('.title').text(singlepost['title'].rendered);
-				$('.post').html(singlepost['content'].rendered);
-				$('.category').text(singlepost['_embedded']['https://api.w.org/term'][0][0]['name']);
-				$('.tag').text(singlepost['_embedded']['https://api.w.org/term'][1][0]['name']);
-				$('.ajax-loader').hide();
-			}
+			$('.title').text(singlepost['title'].rendered);
+			$('.post').html(singlepost['content'].rendered);
+			$('.category').text(singlepost['_embedded']['https://api.w.org/term'][0][0]['name']);
+			$('.tag').text(singlepost['_embedded']['https://api.w.org/term'][1][0]['name']);
+			$('.ajax-loader').hide();
 		});
 	}
 
@@ -97,8 +95,11 @@ jQuery(document).ready(function($){
 
 	}
 
-	function send_to_removed() {
-
+	function removeFromStack() {
+		//when the remove from stack button is clicked
+		//go back to the server and place the post in a category that declares this is "done"
+		//we don't want to have to make another call for all the posts though
+		//so just remove the post from what basically amounts to the local cache - the cleanedposts array
 	}
 
 });
