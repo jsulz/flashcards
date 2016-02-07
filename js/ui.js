@@ -1,4 +1,4 @@
-jQuery(document).ready( function($) {
+jQuery(document).ready(function($) {
 
 	$('#answer').on('click', function(event){
 		event.preventDefault();
@@ -11,5 +11,4 @@ jQuery(document).ready( function($) {
 		$('#usercontrols').show();
 		$('#get-new a').text('Get Another Card');
 	});
-
 });

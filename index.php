@@ -32,6 +32,7 @@
 			<div class="flipper">
 				<div class="front">
 					<div class="card-content">
+						<div class="ajax-loader"><img src="<?php echo get_template_directory_uri() . '/spinner.svg' ?>" width="32" height="32" /></div>
 						<h3 class="language category"></h3>
 						<h3 class="context tag"></h3>
 						<h1 class="function title">Get Started!</h1>

@@ -1,20 +1,36 @@
 var $el;
 var posts = {};
+var cleanedPosts = [];
 
+//get the posts from the server and load them into the posts var
 function getPostsFromServer( callback ) {
-	// TODO: AJAX get posts from server
+
 	doAjax( wpInfo.api_url, {} )
 		.done( function( data ) {
 			posts = data;
+			removeUnwanted();
 		} );
 
 }
 
+function filtering( checkingposts ) {
+	console.log(checkingposts);
+	return jQuery.inArray( 1, checkingposts.categories);
+}
+
+function removeUnwanted() {
+	for (var key in posts) {
+		cleanedPosts = posts.filter(filtering, key);
+	}
+}
+
+//after loading all of the post objects into the posts var, grab a random post from the stack and return it
 function getRandomPost() {
-	var post = posts[ Math.floor( Math.random() * posts.length ) ];
+	var post = cleanedPosts[ Math.floor( Math.random() * cleanedPosts.length ) ];
 	return post;
 }
 
+//go and get the posts!
 function doAjax( endpoint, data ) {
 	return jQuery.ajax( {
 		url: endpoint,
@@ -27,36 +43,61 @@ jQuery(document).ready(function($){
 
 	$el = $('card-content');
 
-	getPostsFromServer( setpostdata );
+	//get all of the posts from the server
+	getPostsFromServer( setPostData );
 
+	//each time we click on the "Get Another Card" Button, make a call to setPostData
 	$('#get-new').on('click', function(event) {
-		setpostdata(event);
+		//don't really need to pass along the event object, but will anyway just in case!
+		setPostData(event);
 	});
 
-	function setpostdata () {
+	function setPostData () {
+
+		$('.title').text('');
+		$('.category').text('');
+		$('.tag').text('');
+		$('.ajax-loader').show();
+
+		//check to see whether or not the card is currently showing the "back", if it is, flip it, otherwise you're good!
 		checkCardStatus();
+
+		//get a random post from the stack of posts we got by calling to getPostsFromServer
 		post = getRandomPost();
-		console.log(post);
-		//$('.title').text(post['title'].rendered);
-		//$('.post').html(post['content'].rendered);
-		//$('.link a').attr('href', post['flashcards_url']);
+
+		//take the post from the above call and use another API call to drill down and get some more data
 		getMoreInfo(post, {});
 	}
 
 	function getMoreInfo( singlepost, data ) {
+
+		//take the post data from our randomly generated post and build a new API call
 		$.get( wpInfo.api_url + '/?filter[name]=' + singlepost['slug'] + '&_embed', function( data ) {
 			singlepost = data[0];
-			$('.title').text(post['title'].rendered);
-			$('.post').html(post['content'].rendered);
-			$('.link a').attr('href', post['flashcards_url']);
+
+			//render the content
+			if ( singlepost['_embedded']['https://api.w.org/term'][0][0]['name'] === 'Uncategorized') {
+				setPostData();
+			} else {
+				$('.title').text(singlepost['title'].rendered);
+				$('.post').html(singlepost['content'].rendered);
+				$('.category').text(singlepost['_embedded']['https://api.w.org/term'][0][0]['name']);
+				$('.tag').text(singlepost['_embedded']['https://api.w.org/term'][1][0]['name']);
+				$('.ajax-loader').hide();
+			}
 		});
 	}
 
+	//check to see if the "card" is currently flipped, if it is, we'll want to flip it back
 	function checkCardStatus() {
 
 		if ( $('#mycard').hasClass('flip') ) {
 			$('#mycard').toggleClass('flip');
 		}
+
+	}
+
+	function send_to_removed() {
 
 	}
 

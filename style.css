@@ -209,3 +209,17 @@ body {
 	float: right;
 	margin: 20px;
 }
+
+.ajax-loader {
+    display: none;
+    text-align: center;
+    padding: .7em;
+}
+
+.ajax-loader img {
+    animation: spinner .6s linear infinite;
+}
+
+@keyframes spinner {
+    to {transform: rotate(360deg);}
+}
