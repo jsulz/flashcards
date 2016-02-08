@@ -39,11 +39,12 @@ function doAjax( endpoint, data ) {
 	} );
 }
 
-jQuery(document).ready(function($){
+(function($, _, undefined){
 
 	$el = $('card-content');
 
 	var post;
+	$el = $( '#js-data' );
 
 	//get all of the posts from the server
 	getPostsFromServer( );
@@ -81,6 +82,10 @@ jQuery(document).ready(function($){
 		//take the post data from our randomly generated post and build a new API call
 		$.get( wpInfo.api_url + '/?filter[name]=' + singlepost['slug'] + '&_embed', function( data ) {
 			singlepost = data[0];
+
+				template = _.template( $( '#post-tmpl' ).html(), singlepost );
+
+			$el.html( template );
 
 			//render the content
 			$('.title').text(singlepost['title'].rendered);
@@ -121,4 +126,4 @@ jQuery(document).ready(function($){
 		});
 	}
 
-});
+})(jQuery, _);

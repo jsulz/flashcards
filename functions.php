@@ -65,7 +65,7 @@ class FLASHCARDS_FUNCTIONS {
 	public function load_flashcards_scripts() {
 
 		wp_enqueue_script( 'front-end', get_template_directory_uri() . '/js/ui.js', array('jquery'), '.1', true );
-		wp_enqueue_script( 'app', get_template_directory_uri() . '/js/app.js', array('jquery'), '.1', true );
+		wp_enqueue_script( 'app', get_template_directory_uri() . '/js/app.js', array('jquery', 'underscore'), '.1', true );
 		wp_enqueue_style( 'main-theme-styles', get_stylesheet_uri() );
 
 		wp_localize_script( 'app', 'wpInfo', 			

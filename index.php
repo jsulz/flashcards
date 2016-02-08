@@ -23,45 +23,40 @@
     <?php wp_head(); ?>
 </head>
 <body>
-<header class="container header clearfix">
-		<div class="row">
-				<h1 id="blog-title">
-					<a href="<?php echo esc_url( home_url() ); ?>">
-						<?php echo bloginfo( 'name' );?>
-					</a>
-				</h1>
-				<h2 class="button" id="get-new">
-					<a href="#">
-						Get First Card!
-					</a>
-				</h2>
+	<header class="container header clearfix">
+			<div class="row">
+					<h1 id="blog-title">
+						<a href="<?php echo esc_url( home_url() ); ?>">
+							<?php echo bloginfo( 'name' );?>
+						</a>
+					</h1>
+					<h2 class="button" id="get-new">
+						<a href="#">
+							Get First Card!
+						</a>
+					</h2>
+			</div>
+	</header>
+		<div id="wrapper">
+			<div id="js-data" class="container" aria-live="assertive">
+				<!-- Our collection and single view data will be appended here -->
+			</div>
 		</div>
-</header>
-<div class="wrapper">
-	<div class="content">
-		<div id="mycard" class="flip-container">
-				<div class="flipper">
-					<div class="front">
-						<div class="card-content">
-							<div class="ajax-loader"><img src="<?php echo get_template_directory_uri() . '/spinner.svg' ?>" width="32" height="32" /></div>
-							<h3 class="language category"></h3>
-							<h3 class="context tag"></h3>
-							<h1 class="function title">Get Started!</h1>
-						</div>
-					</div>
-						<div class="back">
-							<div class="card-content">
-								<div class="post"></div>
-								<div class="link">
-									<a href="">Resource</a>
-								</div>
-							</div>
-						</div>
-				</div>
+<script id="post-tmpl" type="text/template">
+	<% if ( typeof _embedded["https://api.w.org/featuredmedia"] !== 'undefined' ) { %>
+		<div class="featured" id="attachment-<%= _embedded['https://api.w.org/featuredmedia'][0].id %>">
+			<img class="aligncenter" src="<%= _embedded['https://api.w.org/featuredmedia'][0].source_url %>">
 		</div>
+	<% } %>
+	<div id="post-<%= id %>">
+		<h1><%= title.rendered %></h1>
+
+		<p class="author-info">Written by: <img src="<%= _embedded.author[0].avatar_urls[24] %>"> <%= _embedded.author[0].name %></p>
+
+		<%= content.rendered %>
 	</div>
-</div>
-<body>
+</script>
+</body>
 <footer class="container footer">
 	<?php wp_footer(); ?>
 	<div id="usercontrols" class="row">
@@ -69,3 +64,5 @@
 		<div id="remove" class="button"><a href="#">Remove from Stack</a></div>
 	</div> 
 </footer>
+
+</html>
