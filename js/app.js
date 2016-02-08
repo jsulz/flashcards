@@ -4,7 +4,7 @@ var cleanedPosts = [];
 
 //get the posts from the server and load them into the posts var
 function getPostsFromServer( ) {
-
+	console.log('hi');
 	doAjax( wpInfo.api_url, {} )
 		.done( function( data ) {
 			posts = data;
@@ -20,6 +20,7 @@ function filtering( checkingposts ) {
 }
 
 function removeUnwanted() {
+	console.log('hi');
 	for (var key in posts) {
 		cleanedPosts = posts.filter(filtering, key);
 	}
@@ -48,6 +49,7 @@ jQuery(document).ready(function($){
 
 	//get all of the posts from the server
 	getPostsFromServer( );
+	console.log('hi');
 
 	//each time we click on the "Get Another Card" Button, make a call to setPostData
 	$('#get-new').on('click', function(event) {
@@ -55,6 +57,7 @@ jQuery(document).ready(function($){
 		setPostData(event);
 	});
 
+	//only happens when the post var is set because this button is hidden by default and requires interaction with the get-new button to be seen
 	$('#remove').on( 'click', removeFromStack);
 
 	function setPostData () {

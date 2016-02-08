@@ -7,6 +7,7 @@
   	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   	<link rel="shortcut icon" href="/flash.ico">
   	<link rel="apple-touch-icon" href="/flash.png">
+  	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Arvo" />
     <!--[if lt IE 9]>
 	    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
