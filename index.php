@@ -42,27 +42,40 @@
 				<!-- Our collection and single view data will be appended here -->
 			</div>
 		</div>
-<script id="post-tmpl" type="text/template">
-	<% if ( typeof _embedded["https://api.w.org/featuredmedia"] !== 'undefined' ) { %>
-		<div class="featured" id="attachment-<%= _embedded['https://api.w.org/featuredmedia'][0].id %>">
-			<img class="aligncenter" src="<%= _embedded['https://api.w.org/featuredmedia'][0].source_url %>">
-		</div>
-	<% } %>
-	<div id="post-<%= id %>">
-		<h1><%= title.rendered %></h1>
-
-		<p class="author-info">Written by: <img src="<%= _embedded.author[0].avatar_urls[24] %>"> <%= _embedded.author[0].name %></p>
-
-		<%= content.rendered %>
-	</div>
-</script>
-</body>
-<footer class="container footer">
-	<?php wp_footer(); ?>
 	<div id="usercontrols" class="row">
 		<div id="answer" class="button"><a href="#">Answer</a></div>
 		<div id="remove" class="button"><a href="#">Remove from Stack</a></div>
 	</div> 
-</footer>
-
+	<footer class="container footer">
+		<?php wp_footer(); ?>
+	</footer>
+</body>
+<script id="post-tmpl" type="text/template">
+<div class="wrapper">
+	<div class="content">
+		<div id="mycard" class="flip-container">
+			<div class="flipper">
+				<div class="front">
+					<div id="card-content">
+						<div class="ajax-loader"><img src="<?php echo get_template_directory_uri() . '/spinner.svg' ?>" width="32" height="32" /></div>
+						<h3 class="language category"><%= _embedded["https://api.w.org/term"][0][0].name %></h3>
+						<h3 class="context tag"><%= _embedded["https://api.w.org/term"][1][0].name %></h3>
+						<h1><%= title.rendered %></h1>
+					</div>
+				</div>
+				<div class="back">
+					<div class="card-content">
+						<div class="post"><%= content.rendered %></div>
+						<div class="extras">
+							<%= flashcards_url %>
+							<%= flashcards_example %>
+							<%= flashcards_parameter %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</script>
 </html>

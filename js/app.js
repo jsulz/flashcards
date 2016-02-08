@@ -48,7 +48,6 @@ function doAjax( endpoint, data ) {
 
 	//get all of the posts from the server
 	getPostsFromServer( );
-	console.log('hi');
 
 	//each time we click on the "Get Another Card" Button, make a call to setPostData
 	$('#get-new').on('click', function(event) {
@@ -57,7 +56,9 @@ function doAjax( endpoint, data ) {
 	});
 
 	//only happens when the post var is set because this button is hidden by default and requires interaction with the get-new button to be seen
-	$('#remove').on( 'click', removeFromStack);
+	$('#remove').on( 'click', function(event) {
+		removeFromStack(event);
+	});
 
 	function setPostData () {
 
@@ -68,6 +69,7 @@ function doAjax( endpoint, data ) {
 
 		//check to see whether or not the card is currently showing the "back", if it is, flip it, otherwise you're good!
 		checkCardStatus();
+		console.log(event);
 
 		//get a random post from the stack of posts we got by calling to getPostsFromServer
 		post = getRandomPost();
@@ -82,16 +84,13 @@ function doAjax( endpoint, data ) {
 		//take the post data from our randomly generated post and build a new API call
 		$.get( wpInfo.api_url + '/?filter[name]=' + singlepost['slug'] + '&_embed', function( data ) {
 			singlepost = data[0];
+			console.log(singlepost);
 
 				template = _.template( $( '#post-tmpl' ).html(), singlepost );
 
 			$el.html( template );
 
 			//render the content
-			$('.title').text(singlepost['title'].rendered);
-			$('.post').html(singlepost['content'].rendered);
-			$('.category').text(singlepost['_embedded']['https://api.w.org/term'][0][0]['name']);
-			$('.tag').text(singlepost['_embedded']['https://api.w.org/term'][1][0]['name']);
 			$('.ajax-loader').hide();
 		});
 	}
@@ -105,9 +104,9 @@ function doAjax( endpoint, data ) {
 
 	}
 
-	function removeFromStack() {
-
-		clean = cleanedPosts.indexOf(post);
+	function removeFromStack(event) {
+		console.log(event);
+		clean = cleanedPosts.indexOf( post );
 		cleanedPosts.splice(clean, 1);
 		removeToDeleted( post );
 		setPostData();
@@ -115,14 +114,12 @@ function doAjax( endpoint, data ) {
 	}
 
 	function removeToDeleted( currentpost ) {
-
 		$.ajax({
 			type: "POST",
 			beforeSend: function(xhr) {
-				xhr.setRequestHeader( 'Authorization', 'Basic ' + 'amFyZWQ6NVltZSBZaWM5IGJjMDIgdG9KYg==');
+				xhr.setRequestHeader( 'Authorization', 'Basic ' + 'amFyZWQ6RkI2ciBPbFdsIGV4cEMgeEY4MA==');
 			},
-			url: wpInfo.api_url + '/' + currentpost.id + '?',
-			data : { categories : [1] }
+			url: wpInfo.api_url + '/' + currentpost.id + '?' + 'categories[]=1',
 		});
 	}
 
