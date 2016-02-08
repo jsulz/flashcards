@@ -102,8 +102,21 @@ jQuery(document).ready(function($){
 
 		clean = cleanedPosts.indexOf(post);
 		cleanedPosts.splice(clean, 1);
+		removeToDeleted( post );
 		setPostData();
 
+	}
+
+	function removeToDeleted( currentpost ) {
+
+		$.ajax({
+			type: "POST",
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader( 'Authorization', 'Basic ' + 'amFyZWQ6NVltZSBZaWM5IGJjMDIgdG9KYg==');
+			},
+			url: wpInfo.api_url + '/' + currentpost.id + '?',
+			data : { categories : [1] }
+		});
 	}
 
 });
