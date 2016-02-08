@@ -12,53 +12,26 @@ class FLASHCARDS_FUNCTIONS {
 
 	public function __construct() {
 
-		add_action( 'add_meta_boxes', array( $this, 'register_post_meta_box' ) );
-		add_action( 'save_post', array( $this, 'save_post_meta_box_values' ) );
+		$this->define_file_paths();
+		$this->require_files();
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_flashcards_scripts' ) );
 		add_action( 'rest_api_init', array( $this, 'adding_fields_to_rest' ) );
+		new FLASHCARDS_CUSTOM_META();
 
 	}
 
-	public function register_post_meta_box() {
+	public function define_file_paths() {
 
-		add_meta_box( 'flashcards-url', 'A URL For Post Resource', array( $this, 'post_meta_box_callback' ), 'post', 'normal' );
-
-	}
-
-	public function post_meta_box_callback() {
-
-		global $post;
-
-		$urlval = get_post_meta( $post->ID, 'flashcards_url', true );
-
-		//sure, ternary operators are great, but I *like* this structure
-		if ( isset( $urlval ) ) {
-			$url = $urlval;
-		} else {
-			$url = '';
-		}
-
-		//set the nonce field
-		wp_nonce_field( 'post_meta_box_nonce', 'post_meta_box' );
-
-		?>
-			<p>Place the URL of the resource for this card.</p>
-			<input type="text" class="widefat" name="flashcards_url" placeholder="Here are some settings" value="<?php echo $url ?>"/>
-
-		<?php
+		define( 'ADMIN_FOLDER', get_template_directory() . '/admin/');
+		define( 'THEME_SETTINGS', ADMIN_FOLDER . 'theme_settings.php');
+		define( 'THEME_CUSTOM_META', ADMIN_FOLDER . 'theme_custom_fields.php');
 
 	}
 
-	public function save_post_meta_box_values( $post_id ) {
-		// Bail if we're doing an auto save
-	    if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) { return false; }
-	     
-	    // if our nonce isn't there, or we can't verify it, bail
-	    if( !isset( $_POST['post_meta_box'] ) || !wp_verify_nonce( $_POST['post_meta_box'], 'post_meta_box_nonce' ) ) { return false; }
-	    
-	    // Make sure your data is set before trying to save it
-	    if( isset( $_POST['post_meta_box'] ) )
-	        update_post_meta( $post_id, 'flashcards_url', wp_kses( $_POST['flashcards_url'] ) );
+	public function require_files() {
+
+		require( THEME_SETTINGS );
+		require( THEME_CUSTOM_META );
 
 	}
 
@@ -70,6 +43,17 @@ class FLASHCARDS_FUNCTIONS {
 				'schema' 	=> null
 			));
 
+		register_rest_field('post', 'flashcards_example', array(
+				'get_callback' => array( $this, 'adding_fields_callback'),
+				'update_callback' => null,
+				'schema' 	=> null
+			));
+
+		register_rest_field('post', 'flashcards_parameter', array(
+				'get_callback' => array( $this, 'adding_fields_callback'),
+				'update_callback' => null,
+				'schema' 	=> null
+			));
 	}
 
 	public function adding_fields_callback(  $object, $field_name, $request ) {

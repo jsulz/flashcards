@@ -1,7 +1,16 @@
+<?php
+/**
+ * index.php
+ *
+ * Here be the main and only template file for our theme
+ *
+ * @package flashcards 
+ */
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<html <?php language_attributes(); ?> >
 <head>
-  	<meta charset="utf-8" />
+  	<meta charset="<?php bloginfo( 'charset' ); ?>" />
   	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">	
   	<title>Coding the HTML</title>
   	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -17,7 +26,7 @@
 <header class="container header clearfix">
 		<div class="row">
 				<h1 id="blog-title">
-					<a href="#">
+					<a href="<?php echo esc_url( home_url() ); ?>">
 						<?php echo bloginfo( 'name' );?>
 					</a>
 				</h1>

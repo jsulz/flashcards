@@ -4,7 +4,6 @@ var cleanedPosts = [];
 
 //get the posts from the server and load them into the posts var
 function getPostsFromServer( ) {
-	console.log('hi');
 	doAjax( wpInfo.api_url, {} )
 		.done( function( data ) {
 			posts = data;
@@ -20,7 +19,6 @@ function filtering( checkingposts ) {
 }
 
 function removeUnwanted() {
-	console.log('hi');
 	for (var key in posts) {
 		cleanedPosts = posts.filter(filtering, key);
 	}
@@ -75,6 +73,7 @@ jQuery(document).ready(function($){
 
 		//take the post from the above call and use another API call to drill down and get some more data
 		getMoreInfo(post, {});
+
 	}
 
 	function getMoreInfo( singlepost, data ) {
