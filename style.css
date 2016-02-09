@@ -297,3 +297,21 @@ code {
 }
 
 /* Responsive styles */
+
+@media (max-width: 600px) {
+	#get-new {
+		margin: 10px;
+	}
+
+	#blog-title {
+		margin: 10px;
+	}
+
+	#blog-title a {
+		font-size: 2.25em;
+	}
+
+	.row {
+		flex-direction: column;
+	}
+}
