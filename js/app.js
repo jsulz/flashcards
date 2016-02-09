@@ -69,7 +69,6 @@ function doAjax( endpoint, data ) {
 
 		//check to see whether or not the card is currently showing the "back", if it is, flip it, otherwise you're good!
 		checkCardStatus();
-		console.log(event);
 
 		//get a random post from the stack of posts we got by calling to getPostsFromServer
 		post = getRandomPost();
@@ -92,6 +91,11 @@ function doAjax( endpoint, data ) {
 
 			//render the content
 			$('.ajax-loader').hide();
+			$('.accordion').on('click', '.accordion-button', function(event){
+				event.preventDefault();
+				$(this).next('.accordion-content').not(':animated').slideToggle('fast');
+				$(this).next('.accordion-content').siblings('.accordion-content').slideUp('fast');
+			});
 		});
 	}
 

@@ -54,7 +54,7 @@ class FLASHCARDS_CUSTOM_META {
 		<?php
 
 		wp_editor( $example_val, 'flashcards_example', array(
-    		'wpautop'       => true,
+    		'wpautop'       => false,
     		'media_buttons' => false,
     		'textarea_name' => 'flashcards_example',
     		'textarea_rows' => 10,

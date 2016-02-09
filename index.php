@@ -17,6 +17,7 @@
   	<link rel="shortcut icon" href="/flash.ico">
   	<link rel="apple-touch-icon" href="/flash.png">
   	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Arvo" />
+  	<link href='https://fonts.googleapis.com/css?family=Roboto+Mono:300' rel='stylesheet' type='text/css'>
     <!--[if lt IE 9]>
 	    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -37,11 +38,9 @@
 					</h2>
 			</div>
 	</header>
-		<div id="wrapper">
 			<div id="js-data" class="container" aria-live="assertive">
-				<!-- Our collection and single view data will be appended here -->
+				<!-- here be where the post be..... arrrrggghhh matey -->
 			</div>
-		</div>
 	<div id="usercontrols" class="row">
 		<div id="answer" class="button"><a href="#">Answer</a></div>
 		<div id="remove" class="button"><a href="#">Remove from Stack</a></div>
@@ -57,19 +56,35 @@
 			<div class="flipper">
 				<div class="front">
 					<div id="card-content">
-						<div class="ajax-loader"><img src="<?php echo get_template_directory_uri() . '/spinner.svg' ?>" width="32" height="32" /></div>
+						<div class="ajax-loader">
+							<img src="<?php echo get_template_directory_uri() . '/spinner.svg' ?>" width="32" height="32" />
+						</div>
 						<h3 class="language category"><%= _embedded["https://api.w.org/term"][0][0].name %></h3>
 						<h3 class="context tag"><%= _embedded["https://api.w.org/term"][1][0].name %></h3>
-						<h1><%= title.rendered %></h1>
+						<h1 class="title"><%= title.rendered %></h1>
 					</div>
 				</div>
 				<div class="back">
 					<div class="card-content">
-						<div class="post"><%= content.rendered %></div>
-						<div class="extras">
-							<%= flashcards_url %>
-							<%= flashcards_example %>
-							<%= flashcards_parameter %>
+						<div class="post">
+							<ul class="accordion">
+								<div class="accordion-button">Summary</div>
+								<div id="open-first" class="accordion-content">
+									<li><%= content.rendered %></li>
+								</div>
+								<div class="accordion-button">Parameters</div>
+								<div class="accordion-content">
+									<li><%= flashcards_parameter %></li>
+								</div>
+								<div class="accordion-button">Example</div>
+								<div class="accordion-content">
+									<li><%= flashcards_example %></li>
+								</div>
+								<div class="accordion-button">Resource</div>
+								<div class="accordion-content">
+									<li><a class="resource" href="<%= flashcards_url %>">To find out more, use the interwebs.</a></li>
+								</div>
+							</ul>
 						</div>
 					</div>
 				</div>
