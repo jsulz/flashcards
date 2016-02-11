@@ -17,6 +17,7 @@ class FLASHCARDS_FUNCTIONS {
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_flashcards_scripts' ) );
 		add_action( 'rest_api_init', array( $this, 'adding_fields_to_rest' ) );
 		new FLASHCARDS_CUSTOM_META();
+		new FLASHCARDS_SETTINGS_PAGE();
 
 	}
 
@@ -68,6 +69,9 @@ class FLASHCARDS_FUNCTIONS {
 		wp_enqueue_script( 'app', get_template_directory_uri() . '/js/app.js', array('jquery', 'underscore'), '.1', true );
 		wp_enqueue_style( 'main-theme-styles', get_stylesheet_uri() );
 
+		$theme_settings = (array) get_option( 'flashcard_settings' );
+		$theme_verify_app = base64_encode( $theme_settings[ 'username' ] . ':' . $theme_settings[ 'app_key' ] );
+
 		wp_localize_script( 'app', 'wpInfo', 			
 
 			array(
@@ -75,6 +79,7 @@ class FLASHCARDS_FUNCTIONS {
 				'api_url'			 => rest_url() . 'wp/v2/posts',
 				'template_directory' => get_template_directory_uri() . '/',
 				'nonce'				 => wp_create_nonce( 'wp_rest' ),
+				'app_permission'     => $theme_verify_app
 				
 			) );
 

@@ -1,6 +1,5 @@
 <?php
 
-
 class FLASHCARDS_CUSTOM_META {
 
 	public function __construct() {

@@ -14,8 +14,6 @@
   	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">	
   	<title>Coding the HTML</title>
   	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  	<link rel="shortcut icon" href="/flash.ico">
-  	<link rel="apple-touch-icon" href="/flash.png">
   	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Arvo" />
   	<link href='https://fonts.googleapis.com/css?family=Roboto+Mono:300' rel='stylesheet' type='text/css'>
     <!--[if lt IE 9]>
@@ -57,7 +55,7 @@
 				<div class="front">
 					<div id="card-content">
 						<div class="ajax-loader">
-							<img src="<?php echo get_template_directory_uri() . '/spinner.svg' ?>" width="32" height="32" />
+							<img src="<?php echo get_template_directory_uri() . '/assets/spinner.svg' ?>" width="32" height="32" />
 						</div>
 						<h3 class="language category"><%= _embedded["https://api.w.org/term"][0][0].name %></h3>
 						<h3 class="context tag"><%= _embedded["https://api.w.org/term"][1][0].name %></h3>

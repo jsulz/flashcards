@@ -83,7 +83,6 @@ function doAjax( endpoint, data ) {
 		//take the post data from our randomly generated post and build a new API call
 		$.get( wpInfo.api_url + '/?filter[name]=' + singlepost['slug'] + '&_embed', function( data ) {
 			singlepost = data[0];
-			console.log(singlepost);
 
 				template = _.template( $( '#post-tmpl' ).html(), singlepost );
 
@@ -109,7 +108,7 @@ function doAjax( endpoint, data ) {
 	}
 
 	function removeFromStack(event) {
-		console.log(event);
+
 		clean = cleanedPosts.indexOf( post );
 		cleanedPosts.splice(clean, 1);
 		removeToDeleted( post );
@@ -121,9 +120,10 @@ function doAjax( endpoint, data ) {
 		$.ajax({
 			type: "POST",
 			beforeSend: function(xhr) {
-				xhr.setRequestHeader( 'Authorization', 'Basic ' + 'amFyZWQ6RkI2ciBPbFdsIGV4cEMgeEY4MA==');
+				xhr.setRequestHeader( 'Authorization', 'Basic ' +  wpInfo.app_permission );
 			},
 			url: wpInfo.api_url + '/' + currentpost.id + '?' + 'categories[]=1',
+			success: function(){ console.log('success') }
 		});
 	}
 
